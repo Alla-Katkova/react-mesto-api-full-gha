@@ -1,0 +1,9 @@
+.popup__caption-zoom {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FFFFFF;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  align-self: flex-start;
+}

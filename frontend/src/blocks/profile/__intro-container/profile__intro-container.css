@@ -1,0 +1,9 @@
+.profile__intro-container {
+  display: contents;
+}
+@media screen and (min-width: 1280px) {
+    .profile__intro-container {
+        display: flex;
+        flex-direction: row;
+      }
+}

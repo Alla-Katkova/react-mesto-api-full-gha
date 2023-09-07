@@ -1,0 +1,17 @@
+.login__save-button {
+  background-color: #fff;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  height: 50px;
+  line-height: 22px;
+  margin-top: 216px;
+  text-align: center;
+  padding-bottom: 15px;
+  padding-top: 15px;
+
+}

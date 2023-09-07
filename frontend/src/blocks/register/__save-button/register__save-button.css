@@ -1,0 +1,14 @@
+.register__save-button {
+  background-color: #fff;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  height: 50px;
+  line-height: 22px;
+  margin-top: 192px;
+  text-align: center;
+}

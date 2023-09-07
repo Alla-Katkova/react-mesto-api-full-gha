@@ -1,0 +1,14 @@
+.popup__close-button-zoom {
+  position: absolute;
+}
+
+.popup__close-button-zoom:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+@media screen and (min-width: 1280px) {
+  .popup__close-button-zoom {
+   margin-top: -20px;
+  }
+}

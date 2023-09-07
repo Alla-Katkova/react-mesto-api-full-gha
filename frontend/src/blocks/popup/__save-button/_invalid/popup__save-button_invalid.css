@@ -1,0 +1,15 @@
+.popup__save-button_invalid {
+  border: 1px solid #000000;
+  opacity: 0.2;
+  cursor: default;
+  background-color: #E5E5E5;
+  color: #000000;
+}
+
+
+.popup__save-button_invalid:hover {
+  opacity: 0.2;
+  cursor: default;
+
+}
+

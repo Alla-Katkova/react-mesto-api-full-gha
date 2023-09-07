@@ -1,0 +1,10 @@
+.register__input {
+    background-color: inherit;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    color: #fff;
+    height: 30px;
+    padding: 0;
+    width: 100%;
+
+}
