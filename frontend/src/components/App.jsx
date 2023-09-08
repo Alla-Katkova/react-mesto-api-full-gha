@@ -79,7 +79,7 @@ function App() {
   useEffect(() => {
     if (loggedIn) {
       api
-        .getInitialCards()
+        .getInitialCards(localStorage.jwt)
         .then(response => {
           setCards(response)
         })
