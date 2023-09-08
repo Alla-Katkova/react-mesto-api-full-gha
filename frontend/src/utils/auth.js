@@ -1,10 +1,10 @@
-export const BASE_URL = 'http://localhost:3001';
+export const BACKEND_BASE_URL = 'http://localhost:3000';
 
 const responseCheck = (response) => response.ok ? response.json() : Promise.reject(`Ошибка ${response.status}`);
 
 export const register = ({ registerInputPassword, registerInputEmail }) => {
 
-  return fetch(`${BASE_URL}/signup`, {
+  return fetch(`${BACKEND_BASE_URL}/signup`, {
     method: 'POST',
     headers: {
       "Content-Type": "application/json"
@@ -18,7 +18,7 @@ export const register = ({ registerInputPassword, registerInputEmail }) => {
 };
 
 export const authorize = ({ loginInputPassword, loginInputEmail }) => {
-  return fetch(`${BASE_URL}/signin`, {
+  return fetch(`${BACKEND_BASE_URL}/signin`, {
     method: 'POST',
     headers: {
       "Content-Type": "application/json"
@@ -32,7 +32,7 @@ export const authorize = ({ loginInputPassword, loginInputEmail }) => {
 };
 
 export const getContent = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
+  return fetch(`${BACKEND_BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
       "Content-Type": "application/json",

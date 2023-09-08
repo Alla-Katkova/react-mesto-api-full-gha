@@ -76,19 +76,19 @@ function App() {
   }
 
 
-  useEffect(() => {
-    if (loggedIn) {
-      api
-        .getInitialCards()
-        .then(response => {
-          setCards(response)
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    }
-  }, [loggedIn]
-  )
+  // useEffect(() => {
+  //   if (loggedIn) {
+  //     api
+  //       .getInitialCards()
+  //       .then(response => {
+  //         setCards(response)
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       })
+  //   }
+  // }, [loggedIn]
+  // )
 
 
   function handleCardLike(card) {
@@ -119,20 +119,20 @@ function App() {
   }
 
   //api для данных юзера на главной странице
-  useEffect(() => {
-    if (loggedIn) {
+  // useEffect(() => {
+  //   if (loggedIn) {
 
-      api
-        .getUserDetailsFromDataBase()
-        .then(response => {
-          setCurrentUser(response)
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    }
-  }, [loggedIn]
-  )
+  //     api
+  //       .getUserDetailsFromDataBase()
+  //       .then(response => {
+  //         setCurrentUser(response)
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       })
+  //   }
+  // }, [loggedIn]
+  // )
 
   //api для данных юзера в попапе
   function handleUpdateUser(dataUser) {
@@ -170,19 +170,24 @@ function App() {
   // 
   const [isAuthChecking, setIsAuthChecking] = useState(true);
   const tokenCheck = useCallback(() => {
+    console.log('token check is running')
     const jwt = localStorage.getItem('jwt');
-
     if (jwt) {
       setIsAuthChecking(true);
       auth.getContent(jwt)
         .then((response) => {
           if (response) {
             setLoggedIn(true);
-            setEmail(response.data.email)
+            console.log(response)
+            setEmail(response.email)
+            console.log('сейчас будет палка')
             navigate('/');
           }
         })
-        .catch(() => navigate('/sign-in'))
+        .catch((e) => {
+          console.log('catch appeared')
+          console.log(e)
+          navigate('/sign-in')})
         .finally(() => setIsAuthChecking(false))
     } else {
       setIsAuthChecking(false)
@@ -256,17 +261,18 @@ function App() {
           <Route
             path='/'
             element={
-              <ProtectedRoute loggedIn={loggedIn}>
-                <Main
-                  onEditProfile={handleEditProfileClick}
-                  onAddPlace={handleAddPlaceClick}
-                  onEditAvatar={handleEditAvatarClick}
-                  onCardClick={handleCardClick}
-                  onCardLike={handleCardLike}
-                  onCardDelete={handleCardDelete}
-                  cards={cards}
-                />
-              </ProtectedRoute>
+              <div>HELLOOOO</div>
+              // <ProtectedRoute loggedIn={loggedIn}>
+              //   <Main
+              //     onEditProfile={handleEditProfileClick}
+              //     onAddPlace={handleAddPlaceClick}
+              //     onEditAvatar={handleEditAvatarClick}
+              //     onCardClick={handleCardClick}
+              //     onCardLike={handleCardLike}
+              //     onCardDelete={handleCardDelete}
+              //     cards={cards}
+              //   />
+              // </ProtectedRoute>
             }
           />
         </Routes>
