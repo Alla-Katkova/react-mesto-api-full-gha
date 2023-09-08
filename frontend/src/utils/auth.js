@@ -1,4 +1,4 @@
-export const BACKEND_BASE_URL = 'http://localhost:3000';
+export const BACKEND_BASE_URL = 'https://back.mesto.katkova.nomoredomainsicu.ru';
 
 const responseCheck = (response) => response.ok ? response.json() : Promise.reject(`Ошибка ${response.status}`);
 
