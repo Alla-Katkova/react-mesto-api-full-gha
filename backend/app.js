@@ -33,6 +33,11 @@ mongoose.connect(DB_URL, {
   useUnifiedTopology: true,
 });
 
+
+
+// общий роут для карточек юзеров сайнапа и сайнина и общей
+app.use('/', require('./routes/index'));
+
 // Краш-тест сервера
 app.get('/crash-test', () => {
   setTimeout(() => {
@@ -40,9 +45,8 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-
-// общий роут для карточек юзеров сайнапа и сайнина и общей
-app.use('/', require('./routes/index'));
+app.use('/signup', require('./routes/signup'));
+app.use('/signin', require('./routes/signin'));
 
 // логгер ошибок
 app.use(errorLogger);
