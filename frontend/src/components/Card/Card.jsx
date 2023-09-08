@@ -33,7 +33,7 @@ export default function Card({ cardData, onCardClick, onCardDelete, onCardLike }
         <div className="element__like-container">
 
           <button type="button" className={`element__like-button ${isLiked(cardData, currentUser) ? 'element__like-button_active' : ''}`} onClick={handleLikeClick} />
-          <span className="element__counter">{cardData.likes.length}</span>
+          <span className="element__counter">{cardData.likes ? cardData.likes.length : 0}</span>
         </div>
       </div>
       {/* </article> */}

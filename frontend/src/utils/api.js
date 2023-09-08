@@ -19,7 +19,8 @@ class Api {
 
   //Загрузка информации о пользователе с сервера
   getUserDetailsFromDataBase(token) {
-    console.log(token)
+    // console.log('user')
+    // console.log(token)
     return this._request("/users/me", {
       headers: {
         "Authorization": `Bearer ${token}`
@@ -29,6 +30,8 @@ class Api {
 
   //Загрузка карточек с сервера
   getInitialCards(token) {
+    // console.log('cards')
+    // console.log(token)
     return this._request( "/cards", {
       headers: {
         "Authorization": `Bearer ${token}`

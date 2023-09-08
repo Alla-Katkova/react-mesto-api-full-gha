@@ -79,6 +79,8 @@ function App() {
   useEffect(() => {
     if (loggedIn) {
       const jwt = localStorage.getItem('jwt');
+      // console.log('jwt cards')
+      // console.log(jwt)
       api
         .getInitialCards(jwt)
         .then(response => {
@@ -94,14 +96,19 @@ function App() {
 
   function handleCardLike(card) {
     if (isLiked(card, currentUser)) {
-      api.putDislike(card._id)
+      // console.log(currentUser)
+      const jwt = localStorage.getItem('jwt');
+      // console.log('jwt')
+      // console.log(card._id)
+      api.putDislike(card._id, jwt)
         // Обновляем стейт
         .then(newCard => {
           setCards((cardsOld) => cardsOld.map((c) => c._id === card._id ? newCard : c))
         })
         .catch((error) => console.error(`Ошибка при снятии лайка ${error}`))
     } else {
-      api.putLike(card._id)
+      const jwt = localStorage.getItem('jwt');
+      api.putLike(card._id, jwt)
         .then(newCard => {
           // Обновляем стейт
           setCards((cardsOld) => cardsOld.map((c) => c._id === card._id ? newCard : c))
@@ -110,7 +117,8 @@ function App() {
     }
   }
   function handleCardDelete(card) {
-    api.deleteCardFromDB(card._id)
+    const jwt = localStorage.getItem('jwt');
+    api.deleteCardFromDB(card._id, jwt)
       .then(newCard => {
         setCards((cardsOld) => cardsOld.filter((c) => c._id !== card._id && c))
 
@@ -122,9 +130,11 @@ function App() {
   // api для данных юзера на главной странице
   useEffect(() => {
     if (loggedIn) {
-
+      const jwt = localStorage.getItem('jwt');
+      // console.log('jwt user')
+      // console.log(jwt)
       api
-        .getUserDetailsFromDataBase()
+        .getUserDetailsFromDataBase(jwt)
         .then(response => {
           setCurrentUser(response)
         })
@@ -138,7 +148,8 @@ function App() {
   //api для данных юзера в попапе
   function handleUpdateUser(dataUser) {
     //console.log(profilename, profilestatus)
-    api.editUserInfoInDb(dataUser.profilename, dataUser.profilestatus)
+    const jwt = localStorage.getItem('jwt');
+    api.editUserInfoInDb(dataUser.profilename, dataUser.profilestatus, jwt)
       .then(response => {
         setCurrentUser(response)
         closeAllPopups()
@@ -149,7 +160,8 @@ function App() {
   //api для обновления аватарки в попапе
   function handleUpdateAvatar(linkToAvatar) {
     // console.log(linkToAvatar)
-    api.editAvaratInDB(linkToAvatar.avatar)
+    const jwt = localStorage.getItem('jwt');
+    api.editAvaratInDB(linkToAvatar.avatar, jwt)
       .then(response => {
         setCurrentUser(response)
         closeAllPopups()
@@ -159,7 +171,8 @@ function App() {
 
   function handleAddPlaceSubmit(dataCard) {
     //console.log(dataCard)
-    api.addNewCardToServer(dataCard.namePlace, dataCard.link)
+    const jwt = localStorage.getItem('jwt');
+    api.addNewCardToServer(dataCard.namePlace, dataCard.link, jwt)
       .then(response => {
         setCards([response, ...cards])
         closeAllPopups()
