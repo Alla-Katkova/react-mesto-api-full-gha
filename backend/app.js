@@ -35,6 +35,9 @@ mongoose.connect(DB_URL, {
 // общий роут для карточек юзеров сайнапа и сайнина и общей
 app.use('/', require('./routes/index'));
 
+// логгер ошибок
+app.use(errorLogger);
+
 // петрушка, чтобы работал celebrate
 app.use(errors());
 
