@@ -1,7 +1,6 @@
 class Api {
   constructor(config) {
     this._baseUrl = config.baseUrl;
-    this._headers = config.headers;
   }
 
   //общая функция проверки ответа от БД
@@ -14,26 +13,37 @@ class Api {
   }
 
   //Загрузка информации о пользователе с сервера
-  getUserDetailsFromDataBase = () => {
-    return fetch(this._baseUrl + "/users/me", { headers: this._headers }) //headers: {authorization: this._authorization}
+  getUserDetailsFromDataBase = (token) => {
+    return fetch(this._baseUrl + "/users/me", {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    })
       .then(this._checkResponse)
   }
 
   //Загрузка карточек с сервера
-  getInitialCards = () => {
-    return fetch(this._baseUrl + "/cards", { headers: this._headers })
+  getInitialCards = (token) => {
+    return fetch(this._baseUrl + "/cards", {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    })
       .then(this._checkResponse)
   }
 
-  getDataForInitialPageRendering = () => {
-    return Promise.all([this.getUserDetailsFromDataBase(), this.getInitialCards()])
+  getDataForInitialPageRendering = (token) => {
+    return Promise.all([this.getUserDetailsFromDataBase(token), this.getInitialCards(token)])
   }
 
   //редактировать информацию в профиле пользователя
-  editUserInfoInDb = (nameFromForm, aboutFromForm) => {
+  editUserInfoInDb = (nameFromForm, aboutFromForm, token) => {
     return fetch(this._baseUrl + "/users/me", {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
       body: JSON.stringify({
         name: nameFromForm,
         about: aboutFromForm
@@ -43,10 +53,13 @@ class Api {
 
   }
   // добавить карточку
-  addNewCardToServer = (nameNewCard, linkNewCard) => {
+  addNewCardToServer = (nameNewCard, linkNewCard, token) => {
     return fetch(this._baseUrl + "/cards", {
       method: 'POST',
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
       body: JSON.stringify({
         name: nameNewCard,
         link: linkNewCard
@@ -56,19 +69,24 @@ class Api {
   }
 
   // удалить карточку
-  deleteCardFromDB = (id) => {
+  deleteCardFromDB = (id, token) => {
     return fetch(this._baseUrl + `/cards/${id}`, {
       method: 'DELETE',
-      headers: this._headers,
+      headers: {
+        "Authorization": `Bearer ${token}`
+      },
     })
       .then(this._checkResponse)
   }
 
   // редактировать фото аватара
-  editAvaratInDB = (linkToAvatar) => {
+  editAvaratInDB = (linkToAvatar, token) => {
     return fetch(this._baseUrl + "/users/me/avatar", {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
       body: JSON.stringify({
         avatar: linkToAvatar
       })
@@ -77,19 +95,23 @@ class Api {
   }
 
   // поставить лайк
-  putLike = (id) => {
+  putLike = (id, token) => {
     return fetch(this._baseUrl + `/cards/${id}/likes`, {
       method: 'PUT',
-      headers: this._headers
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
     })
       .then(this._checkResponse)
   }
 
   // поставить дизлайк
-  putDislike = (id) => {
+  putDislike = (id, token) => {
     return fetch(this._baseUrl + `/cards/${id}/likes`, {
       method: 'DELETE',
-      headers: this._headers
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
     })
       .then(this._checkResponse)
   }
@@ -98,10 +120,6 @@ class Api {
 
 //создам экземпляр класса апи
 const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
-  headers: {
-    authorization: '1aec61fe-1188-4176-bdbc-e029c1f00874',
-    'Content-Type': 'application/json'
-  }
+  baseUrl: 'https://back.mesto.katkova.nomoredomainsicu.ru',
 });
 export default api;
