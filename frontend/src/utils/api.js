@@ -12,25 +12,28 @@ class Api {
     }
   }
 
+  _request(url, config) {
+    return fetch(`${this._baseUrl}${url}`, config)
+    .then(this._checkResponse)
+  }
+
   //Загрузка информации о пользователе с сервера
-  getUserDetailsFromDataBase = (token) => {
+  getUserDetailsFromDataBase(token) {
     console.log(token)
-    return fetch(this._baseUrl + "/users/me", {
+    return this._request("/users/me", {
       headers: {
         "Authorization": `Bearer ${token}`
       }
     })
-      .then(this._checkResponse)
   }
 
   //Загрузка карточек с сервера
-  getInitialCards = (token) => {
-    return fetch(this._baseUrl + "/cards", {
+  getInitialCards(token) {
+    return this._request( "/cards", {
       headers: {
         "Authorization": `Bearer ${token}`
       }
     })
-      .then(this._checkResponse)
   }
 
   getDataForInitialPageRendering = (token) => {
@@ -38,8 +41,8 @@ class Api {
   }
 
   //редактировать информацию в профиле пользователя
-  editUserInfoInDb = (nameFromForm, aboutFromForm, token) => {
-    return fetch(this._baseUrl + "/users/me", {
+  editUserInfoInDb(nameFromForm, aboutFromForm, token) {
+    return this._request("/users/me", {
       method: 'PATCH',
       headers: {
         "Content-Type": "application/json",
@@ -50,12 +53,11 @@ class Api {
         about: aboutFromForm
       })
     })
-      .then(this._checkResponse)
-
   }
+
   // добавить карточку
-  addNewCardToServer = (nameNewCard, linkNewCard, token) => {
-    return fetch(this._baseUrl + "/cards", {
+  addNewCardToServer(nameNewCard, linkNewCard, token) {
+    return this._request("/cards", {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
@@ -66,23 +68,21 @@ class Api {
         link: linkNewCard
       })
     })
-      .then(this._checkResponse)
   }
 
   // удалить карточку
-  deleteCardFromDB = (id, token) => {
-    return fetch(this._baseUrl + `/cards/${id}`, {
+  deleteCardFromDB(id, token) {
+    return this._request(`/cards/${id}`, {
       method: 'DELETE',
       headers: {
         "Authorization": `Bearer ${token}`
       },
     })
-      .then(this._checkResponse)
   }
 
   // редактировать фото аватара
   editAvaratInDB = (linkToAvatar, token) => {
-    return fetch(this._baseUrl + "/users/me/avatar", {
+    return this._request( "/users/me/avatar", {
       method: 'PATCH',
       headers: {
         "Content-Type": "application/json",
@@ -92,29 +92,26 @@ class Api {
         avatar: linkToAvatar
       })
     })
-      .then(this._checkResponse)
   }
 
   // поставить лайк
   putLike = (id, token) => {
-    return fetch(this._baseUrl + `/cards/${id}/likes`, {
+    return this._request(`/cards/${id}/likes`, {
       method: 'PUT',
       headers: {
         "Authorization": `Bearer ${token}`
       }
     })
-      .then(this._checkResponse)
   }
 
   // поставить дизлайк
   putDislike = (id, token) => {
-    return fetch(this._baseUrl + `/cards/${id}/likes`, {
+    return this._request(`/cards/${id}/likes`, {
       method: 'DELETE',
       headers: {
         "Authorization": `Bearer ${token}`
       }
     })
-      .then(this._checkResponse)
   }
 }
 
