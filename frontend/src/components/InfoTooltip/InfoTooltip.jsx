@@ -9,8 +9,6 @@ export default function InfoTooltip({ isOpen, onClose, isSuccess }) {
   const path = useLocation().pathname
 
   const tooltip = () => {
-   // debugger
-    
     if (path === '/sign-in' || path === '/sign-up') {
       return isSuccess
         ? "Вы успешно зарегистрировались!"

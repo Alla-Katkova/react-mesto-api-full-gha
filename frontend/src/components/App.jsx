@@ -41,7 +41,7 @@ function App() {
   const [email, setEmail] = useState(initialEmail)
 
 
-  // стейты для context       
+  // стейты для context
   const [currentUser, setCurrentUser] = useState({})
   // стейт для карточек
   const [cards, setCards] = useState([])
@@ -257,7 +257,6 @@ function App() {
             path='/'
             element={
               <ProtectedRoute loggedIn={loggedIn}>
-                {/* <pre>{JSON.stringify(cards, null,2)}</pre> */}
                 <Main
                   onEditProfile={handleEditProfileClick}
                   onAddPlace={handleAddPlaceClick}
