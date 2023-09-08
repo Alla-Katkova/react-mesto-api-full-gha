@@ -76,19 +76,19 @@ function App() {
   }
 
 
-  // useEffect(() => {
-  //   if (loggedIn) {
-  //     api
-  //       .getInitialCards()
-  //       .then(response => {
-  //         setCards(response)
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       })
-  //   }
-  // }, [loggedIn]
-  // )
+  useEffect(() => {
+    if (loggedIn) {
+      api
+        .getInitialCards()
+        .then(response => {
+          setCards(response)
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
+  }, [loggedIn]
+  )
 
 
   function handleCardLike(card) {
@@ -118,21 +118,21 @@ function App() {
       .catch((error) => console.error(`Ошибка при удалении карточки ${error}`))
   }
 
-  //api для данных юзера на главной странице
-  // useEffect(() => {
-  //   if (loggedIn) {
+  // api для данных юзера на главной странице
+  useEffect(() => {
+    if (loggedIn) {
 
-  //     api
-  //       .getUserDetailsFromDataBase()
-  //       .then(response => {
-  //         setCurrentUser(response)
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       })
-  //   }
-  // }, [loggedIn]
-  // )
+      api
+        .getUserDetailsFromDataBase()
+        .then(response => {
+          setCurrentUser(response)
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
+  }, [loggedIn]
+  )
 
   //api для данных юзера в попапе
   function handleUpdateUser(dataUser) {
@@ -170,7 +170,6 @@ function App() {
   // 
   const [isAuthChecking, setIsAuthChecking] = useState(true);
   const tokenCheck = useCallback(() => {
-    console.log('token check is running')
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
       setIsAuthChecking(true);
@@ -178,14 +177,12 @@ function App() {
         .then((response) => {
           if (response) {
             setLoggedIn(true);
-            console.log(response)
             setEmail(response.email)
-            console.log('сейчас будет палка')
             navigate('/');
           }
         })
         .catch((e) => {
-          console.log('catch appeared')
+          console.log('auth failed')
           console.log(e)
           navigate('/sign-in')})
         .finally(() => setIsAuthChecking(false))
@@ -261,18 +258,18 @@ function App() {
           <Route
             path='/'
             element={
-              <div>HELLOOOO</div>
-              // <ProtectedRoute loggedIn={loggedIn}>
-              //   <Main
-              //     onEditProfile={handleEditProfileClick}
-              //     onAddPlace={handleAddPlaceClick}
-              //     onEditAvatar={handleEditAvatarClick}
-              //     onCardClick={handleCardClick}
-              //     onCardLike={handleCardLike}
-              //     onCardDelete={handleCardDelete}
-              //     cards={cards}
-              //   />
-              // </ProtectedRoute>
+ 
+              <ProtectedRoute loggedIn={loggedIn}>
+                <Main
+                  onEditProfile={handleEditProfileClick}
+                  onAddPlace={handleAddPlaceClick}
+                  onEditAvatar={handleEditAvatarClick}
+                  onCardClick={handleCardClick}
+                  onCardLike={handleCardLike}
+                  onCardDelete={handleCardDelete}
+                  cards={cards}
+                />
+              </ProtectedRoute>
             }
           />
         </Routes>
