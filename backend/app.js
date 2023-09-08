@@ -32,6 +32,14 @@ mongoose.connect(DB_URL, {
   useUnifiedTopology: true,
 });
 
+// Краш-тест сервера
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
+
 // общий роут для карточек юзеров сайнапа и сайнина и общей
 app.use('/', require('./routes/index'));
 
