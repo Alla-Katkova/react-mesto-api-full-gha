@@ -1,54 +1,56 @@
-const mongoose = require('mongoose');
-const express = require('express');
-const bodyParser = require('body-parser');
-const { errors } = require('celebrate');
-const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
-const cors = require('cors');
+// const mongoose = require('mongoose');
+// const express = require('express');
+// const bodyParser = require('body-parser');
+// const { errors } = require('celebrate');
+// const helmet = require('helmet');
+// const rateLimit = require('express-rate-limit');
+// const { requestLogger, errorLogger } = require('./middlewares/logger');
+// const cors = require('cors');
 
-const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
-const app = express();
+// const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
+// const app = express();
 
-app.use(cors());
+// app.use(cors());
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // за 15 минут
-  max: 100, // можно совершить максимум 100 запросов с одного IP
-});
+// const limiter = rateLimit({
+//   windowMs: 15 * 60 * 1000, // за 15 минут
+//   max: 100, // можно совершить максимум 100 запросов с одного IP
+// });
 
-// логгер
-app.use(requestLogger);
+// // логгер
+// app.use(requestLogger);
 
-// безопасность
-app.use(limiter);
-app.use(helmet());
+// // безопасность
+// app.use(limiter);
+// app.use(helmet());
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect(DB_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// mongoose.connect(DB_URL, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
 
-// общий роут для карточек юзеров сайнапа и сайнина и общей
-app.use('/', require('./routes/index'));
+// // общий роут для карточек юзеров сайнапа и сайнина и общей
+// app.use('/', require('./routes/index'));
 
-// петрушка, чтобы работал celebrate
-app.use(errors());
+// // петрушка, чтобы работал celebrate
+// app.use(errors());
 
-// централизация ошибок
-app.use((err, req, res, next) => {
-  const { statusCode = 500, message } = err;
-  res
-    .status(statusCode)
-    .send({
-      message: statusCode === 500
-        ? 'На сервере произошла ошибка'
-        : message,
-    });
-  next();
-});
+// // централизация ошибок
+// app.use((err, req, res, next) => {
+//   const { statusCode = 500, message } = err;
+//   res
+//     .status(statusCode)
+//     .send({
+//       message: statusCode === 500
+//         ? 'На сервере произошла ошибка'
+//         : message,
+//     });
+//   next();
+// });
 
-app.listen(PORT);
+// app.listen(PORT);
+
+console.log('HI')
