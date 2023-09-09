@@ -5,8 +5,8 @@ const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('cors');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 const app = express();
@@ -32,8 +32,6 @@ mongoose.connect(DB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
-
 
 // общий роут для карточек юзеров сайнапа и сайнина и общей
 app.use('/', require('./routes/index'));
@@ -61,7 +59,7 @@ app.use((err, req, res, next) => {
     .status(statusCode)
     .send({
       message: statusCode === 500
-        //? 'На сервере произошла ошибка'
+        // ? 'На сервере произошла ошибка'
         ? JSON.stringify(err)
         : message,
     });

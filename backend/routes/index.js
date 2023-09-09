@@ -6,8 +6,6 @@ const cardsRouter = require('./cards');
 const auth = require('../middlewares/auth');
 const NotFoundError = require('../errors/NotFoundError');
 
-
-
 router.use(auth);
 
 router.use('/users', usersRouter);
