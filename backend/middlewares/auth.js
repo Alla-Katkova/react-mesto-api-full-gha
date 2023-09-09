@@ -1,6 +1,9 @@
 const jwt = require('jsonwebtoken');
 
-const { SECRET_KEY = 'some-secret-key' } = process.env;
+const { SECRET_KEY } = process.env;
+if (!SECRET_KEY) {
+  throw new Error ('нет ключа работать не буду')
+}
 // console.log(SECRET_KEY)
 const UnAutorizedError = require('../errors/UnAuthtorizedError');
 
