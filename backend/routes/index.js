@@ -9,6 +9,7 @@ const NotFoundError = require('../errors/NotFoundError');
 router.use('/signup', signupRouter);
 router.use('/signin', signinRouter);
 const auth = require('../middlewares/auth');
+
 router.use(auth);
 
 router.use('/users', usersRouter);
