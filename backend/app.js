@@ -11,6 +11,13 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 const app = express();
 
+// Краш-тест сервера
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 app.use(cors());
 
 const limiter = rateLimit({
@@ -35,16 +42,6 @@ mongoose.connect(DB_URL, {
 
 // общий роут для карточек юзеров сайнапа и сайнина и общей
 app.use('/', require('./routes/index'));
-
-// Краш-тест сервера
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
-
-app.use('/signup', require('./routes/signup'));
-app.use('/signin', require('./routes/signin'));
 
 // логгер ошибок
 app.use(errorLogger);
